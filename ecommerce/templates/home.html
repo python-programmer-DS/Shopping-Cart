@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - E-commerce Store{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">Welcome to our E-commerce Store</h1>
+  {% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}! We're glad to see you back.</p>
+  {% else %}
+    <p>Discover our amazing products and great deals!</p>
+  {% endif %}
+  <a href="{% url 'store:product_list' %}" class="btn btn-primary">View All Products</a>
+{% endblock %}

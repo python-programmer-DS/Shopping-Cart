@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} - E-commerce Store{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <!-- Product Image Section -->
+    <div class="col-lg-6">
+      <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{ product.name }}">
+    </div>
+
+    <!-- Product Details and Cart Functionality Section -->
+    <div class="col-lg-6">
+      <h1>{{ product.name }}</h1>
+      <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+      <p class="price">${{ product.price }}</p>
+      
+      <!-- Add to cart form -->
+      <form action="{% url "store:cart_add" product.id %}" method="post">
+        {{ cart_add_product_form }}
+        {% csrf_token %}
+        <input type="submit" value="Add to cart" class="btn btn-primary">
+      </form>
+
+      <!-- Product Description -->
+      <div class="mt-4">
+        <h3>Product Description</h3>
+        {{ product.description|linebreaks }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
